@@ -3,6 +3,7 @@ package com.javaprograms.logical;
 import java.util.Scanner;
 
 public class CouponNumber {
+	static int[] coupon;
 
 	static int randomCoupon() {
 		return (int)Math.floor(Math.random()*100);
@@ -13,14 +14,14 @@ public class CouponNumber {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter N number of Coupon numbers");
 		int N = sc.nextInt();
-		int[] coupon = new int[N];
+		coupon = new int[N];
+		int count = 0;
 		
-		for (int i = 0; i < coupon.length; i++) {
-			coupon[i] = randomCoupon();
-			for (int j = coupon.length-1; j >= 0 ; j--) {
-				if(coupon[i] == coupon[j]) {
-					coupon[i] = randomCoupon();
-				}
+		while(count != coupon.length) {
+			int random = randomCoupon();
+			if (!isPresent(random)) {
+				coupon[count] = random;
+				count++;
 			}
 		}
 		
@@ -28,6 +29,15 @@ public class CouponNumber {
 			System.out.print(coupon[i] + " ");
 		}
 		sc.close();
+	}
+
+	static boolean isPresent(int num) {
+		for (int i = 0; i < coupon.length; i++) {
+			if(coupon[i] == num) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
